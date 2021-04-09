@@ -11,7 +11,7 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
-# crear el archivo '.env.local' en base al '.env.example' y exportar variables 
+#### crear el archivo '.env.local' en base al '.env.example' y exportar variables 
 
 ```
 cp .env.example .env.local
