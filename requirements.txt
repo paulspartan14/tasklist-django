@@ -12,3 +12,15 @@ zipp==3.4.1
 
 # API Documentation DRF
 Markdown==3.3.4
+
+# Django Filter
+django-filter==2.4.0
+
+# Django JsonWebToken
+djangorestframework-simplejwt==4.6.0
+PyJWT==2.0.1
+
+# Django CorsHeaders
+django-cors-headers==3.7.0
+
+

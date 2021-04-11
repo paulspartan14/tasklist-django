@@ -12,7 +12,10 @@ DJANGO_APPS = (
 ) 
 
 THIRD_PART_APPS = (
+    'django_filters',
     'rest_framework',
+    'corsheaders',
+    
 )
 
 LOCAL_APPS = (

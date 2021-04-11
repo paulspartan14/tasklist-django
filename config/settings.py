@@ -34,9 +34,13 @@ DEBUG = bool(int(environ.get('DEBUG', 0)))
 
 ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS', '*').split(' ')
 
+# Si editas el usuario Abstract, agrega esta opción
+AUTH_USER_MODEL = 'tasklist.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # django-cors-headers middleware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
