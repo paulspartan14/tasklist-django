@@ -17,13 +17,29 @@ from django.contrib import admin
 from django.urls import path, include
 # import DRF Router Base
 from rest_framework import routers
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+# import our views
+from tasklist.views import GroupView, UserViewSet
 
 # Default routers for DRF
 router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+
+auth_patterns = [
+    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('groups/', GroupView.as_view()),
+
+]
+
+api_urlpatterns = [
+    path('', include(router.urls)),
+    path('auth/', include(auth_patterns)),
+]
 
 urlpatterns = [
+    # admin
     path('admin/', admin.site.urls),
-
     # Inyected router API
-    path('api/', include(router.urls)),
+    path('api/', include(api_urlpatterns)),
 ]
