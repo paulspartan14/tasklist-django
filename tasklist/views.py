@@ -12,10 +12,10 @@ class GroupView(generics.ListAPIView):
     serializer_class = GroupSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = Group.objects.all()
+    queryset = User.objects.all()
     serializer_class = UserSerializer
 
     filterset_fields = []
     search_fields = ['username', 'email']
     ordering_fields = ['id', 'email', 'username']
-    #ordering = ['-date_joined']
+    ordering = ['-date_joined']
