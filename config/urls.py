@@ -20,16 +20,16 @@ from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 # import our views
-from tasklist.views import GroupView, UserViewSet
+from tasklist.views import GroupViewSet, UserViewSet, TaskViewSet
 
 # Default routers for DRF
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'tasks', TaskViewSet)
 
 auth_patterns = [
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('groups/', GroupView.as_view()),
-
+    path('groups/', GroupViewSet.as_view()),
 ]
 
 api_urlpatterns = [

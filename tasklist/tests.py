@@ -23,8 +23,8 @@ class TasklistTests(APITestCase):
           first_name = 'Paul',
           last_name = 'Mena'
         )
-        admin_group.groups.add(admin_group)
-        admin_user_save()
+        admin_user.groups.add(admin_group)
+        admin_user.save()
 
         # user 1
         admin_user = User.objects.create(
@@ -33,8 +33,8 @@ class TasklistTests(APITestCase):
           first_name = 'Karla',
           last_name = 'Puc'
         )
-        admin_group.groups.add(user_group)
-        admin_user_save()
+        admin_user.groups.add(user_group)
+        admin_user.save()
         
         # user 2
         admin_user = User.objects.create(
@@ -43,6 +43,29 @@ class TasklistTests(APITestCase):
           first_name = 'Jose',
           last_name = 'Santos'
         )
-        admin_group.groups.add(user_group)
-        admin_user_save()
+        admin_user.groups.add(user_group)
+        admin_user.save()
+
+    def TestAuth(self):
+        response = self.client.get('/api/auth/groups/')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        data = { 'username': 'paul', 'password': '12345' }
+        response = self.client.post('/api/auth/login/', data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        token = response.json()['access']
+
+        self.client.credentials(HTTP_AUTHORIZATION= 'Bearer %s'% token)
+        response = self.client.get('/api/auth/groups/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_users(self):
+        response = self.client.get('/api/users/')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        self.client.login(username = 'paul', password = 'paulspartan44')
+        response = self.client.get('/api/users/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
 
